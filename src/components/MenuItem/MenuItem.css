@@ -1,0 +1,27 @@
+.Menu-item {
+    width: 30%;
+    margin: 5px;
+}
+.Menu-item:hover{
+    background: indianred;
+    cursor: pointer;
+}
+.card-body {
+    padding: 3px;
+}
+/*.Menu-image{*/
+/*    width: 20%;*/
+/*    display: inline-block;*/
+/*}*/
+.Menu-image img {
+    width: 80px;
+}
+.Menu-info {
+    display: flex;
+    height: 100%;
+}
+.Menu-info > p {
+    align-self: center;
+    margin: 0;
+    padding: 0;
+}

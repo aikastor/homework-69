@@ -1,26 +1,17 @@
 import React from 'react';
-import logo from './logo.svg';
+import {Col, Container, Row} from "reactstrap";
+import Menu from "./containers/Menu/Menu";
 import './App.css';
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      <Container className='Container' fluid={true}>
+        <Row>
+          <Col xs="8"><Menu/></Col>
+          <Col xs="4">Cart</Col>
+        </Row>
+      </Container>
   );
-}
+};
 
 export default App;

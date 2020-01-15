@@ -1,0 +1,4 @@
+.Menu-container{
+    display: flex;
+    flex-wrap: wrap;
+}
