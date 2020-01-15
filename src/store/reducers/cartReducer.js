@@ -1,29 +1,36 @@
 import {ADD_ITEM} from "../actions/actionTypes";
 
 const initialState = {
-  orders: {},
+  orders: [],
   totalPrice: 0,
 };
 
 const cartReducer = (state = initialState, action)=> {
 
   const searchForItem = (item)=> {
-    const curState = {...state.orders};
-    const itemToSearch = Object.keys(item)[0];
+    const curState = [...state.orders];
 
-    if (!curState.hasOwnProperty(itemToSearch)) {
-      return {...state.orders, ...item};
-    } else {
-      return {...state.orders, itemToSearch: ''}
+    let index = curState.findIndex(i => i.name === item.name);
+
+    if (index === -1) {
+      curState.push(item)
+    } else  {
+      let itemToChange = curState[index];
+
+      itemToChange.qnt ++;
+      itemToChange.totalPrice += item.price;
+    }
+    return {
+      ...state,
+      orders:  curState,
+      totalPrice: state.totalPrice + item.price,
     }
   };
 
   switch (action.type) {
     case ADD_ITEM:
-      return {
-        ...state,
-        orders: {...state.orders, ...action.item}
-      };
+      return searchForItem(action.item);
+
     default:
       return state
   }

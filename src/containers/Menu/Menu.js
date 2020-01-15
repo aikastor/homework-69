@@ -15,15 +15,13 @@ class Menu extends Component {
     return (
         <div className='Menu-container'>
           {Object.keys(this.props.menuItems).map(item=> {
-            const lala = item;
-            const itemToSend = {};
-            itemToSend[lala] = {price: this.props.menuItems[item].price, qnt: 1};
+            let price = this.props.menuItems[item].price;
             return (
                 <MenuItem name={item}
-                          price={this.props.menuItems[item].price}
+                          price={price}
                           image={this.props.menuItems[item].image}
                           key={item}
-                          onAddItem={() => this.props.onAddItem(itemToSend)}
+                          onAddItem={() => this.props.onAddItem({name: item, qnt: 1, price: price, totalPrice: price})}
                 />
             )
           })}

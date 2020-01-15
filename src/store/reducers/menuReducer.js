@@ -1,4 +1,4 @@
-import {ADD_ITEM, MENU_FAILURE, MENU_REQUEST, MENU_SUCCESS} from "../actions/actionTypes";
+import {MENU_FAILURE, MENU_REQUEST, MENU_SUCCESS} from "../actions/actionTypes";
 
 const initialState = {
   menuItems: [],
