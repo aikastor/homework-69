@@ -7,7 +7,6 @@ import {addItem} from "../../store/actions/cartActions";
 
 class Menu extends Component {
   componentDidMount() {
-    console.log(this.props.menuItems)
     this.props.onMenuLoad();
   }
 
@@ -26,7 +25,6 @@ class Menu extends Component {
             )
           })}
         </div>
-
     );
   }
 }

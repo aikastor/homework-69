@@ -1,15 +1,15 @@
-import {ADD_ITEM} from "../actions/actionTypes";
+import {ADD_ITEM, REMOVE_ITEM} from "../actions/actionTypes";
 
 const initialState = {
   orders: [],
-  totalPrice: 0,
+  totalPrice: 150,
 };
 
 const cartReducer = (state = initialState, action)=> {
 
-  const searchForItem = (item)=> {
-    const curState = [...state.orders];
+  const addItem = (item)=> {
 
+    const curState = [...state.orders];
     let index = curState.findIndex(i => i.name === item.name);
 
     if (index === -1) {
@@ -29,8 +29,13 @@ const cartReducer = (state = initialState, action)=> {
 
   switch (action.type) {
     case ADD_ITEM:
-      return searchForItem(action.item);
-
+      return addItem(action.item);
+    case REMOVE_ITEM:
+      return {
+        ...state,
+        orders: [...state.orders].filter(i=> i.name !== action.item),
+        totalPrice: state.totalPrice - action.price
+      };
     default:
       return state
   }
