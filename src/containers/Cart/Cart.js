@@ -1,15 +1,16 @@
 import React, {Component} from 'react';
 import {connect} from "react-redux";
-import {Button, Card, Table} from "reactstrap";
+import {Card, Table} from "reactstrap";
 
 import './Cart.css';
 import {removeItem} from "../../store/actions/cartActions";
+import PlaceOrderModal from "../../components/PlaceOrderModal/PlaceOrderModal";
 
 class Cart extends Component {
   render() {
     const table = this.props.orderItems.length > 0;
     return (
-        <Card>
+        <Card className='Cart'>
           Your order:
           <br/>
           {
@@ -54,10 +55,9 @@ class Cart extends Component {
                 </tfoot>
               </Table>
           }
-          <Button disabled={!table}
-                  outline color="success"
-          >Place order
-          </Button>
+          <PlaceOrderModal
+              table={!table}
+              initialModalState={false}/>
         </Card>
     );
   }

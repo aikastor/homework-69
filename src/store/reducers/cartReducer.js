@@ -1,8 +1,16 @@
-import {ADD_ITEM, REMOVE_ITEM} from "../actions/actionTypes";
+import {
+  ADD_ITEM, INIT_CART,
+  ORDER_FAILURE,
+  ORDER_REQUEST,
+  ORDER_SUCCESS,
+  REMOVE_ITEM
+} from "../actions/actionTypes";
 
 const initialState = {
   orders: [],
   totalPrice: 150,
+  ordering: false,
+  error: null,
 };
 
 const cartReducer = (state = initialState, action)=> {
@@ -36,6 +44,14 @@ const cartReducer = (state = initialState, action)=> {
         orders: [...state.orders].filter(i=> i.name !== action.item),
         totalPrice: state.totalPrice - action.price
       };
+    case ORDER_REQUEST:
+      return {...state, ordering: true};
+    case ORDER_SUCCESS:
+      return {...state, ordering: false, error: null};
+    case ORDER_FAILURE:
+      return {...state, ordering: false, error: action.error};
+    case INIT_CART:
+      return {...state, orders: [], totalPrice: 150,};
     default:
       return state
   }
