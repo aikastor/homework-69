@@ -51,7 +51,7 @@ const cartReducer = (state = initialState, action)=> {
     case ORDER_FAILURE:
       return {...state, ordering: false, error: action.error};
     case INIT_CART:
-      return {...state, orders: [], totalPrice: 150,};
+      return {...state, orders: [], totalPrice: 150};
     default:
       return state
   }

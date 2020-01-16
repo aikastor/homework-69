@@ -88,7 +88,7 @@ class PlaceOrderModal extends Component {
                      placeholder="Enter your address" onChange={e=>this.onChange(e)}/>
             </Col>
           </FormGroup>
-          <Button color="primary">Do Something</Button>{' '}
+          <Button color="primary">Place order</Button>{' '}
         </Form>
     );
 
