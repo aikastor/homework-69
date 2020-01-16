@@ -23,10 +23,8 @@ const cartReducer = (state = initialState, action)=> {
     if (index === -1) {
       curState.push(item)
     } else  {
-      let itemToChange = curState[index];
-
-      itemToChange.qnt ++;
-      itemToChange.totalPrice += item.price;
+      curState[index].qnt++;
+      curState[index].totalPrice += item.price;
     }
     return {
       ...state,
@@ -34,6 +32,7 @@ const cartReducer = (state = initialState, action)=> {
       totalPrice: state.totalPrice + item.price,
     }
   };
+
   const increaseQnt = (name, price)=> {
     let orderItem = curState.find(i=> i.name === name);
     orderItem.qnt ++;
@@ -45,6 +44,7 @@ const cartReducer = (state = initialState, action)=> {
       totalPrice: state.totalPrice + price,
     }
   };
+
   const decreaseQnt =(name, price)=>{
     let orderItem = curState.find(i=> i.name === name);
 
@@ -66,6 +66,7 @@ const cartReducer = (state = initialState, action)=> {
       }
     }
   };
+
   switch (action.type) {
     case ADD_ITEM:
       return addItem(action.item);
