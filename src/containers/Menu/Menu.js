@@ -4,6 +4,7 @@ import {connect} from "react-redux";
 import MenuItem from "../../components/MenuItem/MenuItem";
 import './Menu.css';
 import {addItem} from "../../store/actions/cartActions";
+import {Spinner} from "reactstrap";
 
 class Menu extends Component {
   componentDidMount() {
@@ -13,23 +14,28 @@ class Menu extends Component {
   render() {
     return (
         <div className='Menu-container'>
-          {Object.keys(this.props.menuItems).map(item=> {
-            let price = this.props.menuItems[item].price;
-            return (
-                <MenuItem name={item}
-                          price={price}
-                          image={this.props.menuItems[item].image}
-                          key={item}
-                          onAddItem={() => this.props.onAddItem({name: item, qnt: 1, price: price, totalPrice: price})}
-                />
-            )
-          })}
+          {!this.props.loading ?
+            Object.keys(this.props.menuItems).map(item=> {
+                let price = this.props.menuItems[item].price;
+                return (
+                    <MenuItem name={item}
+                              price={price}
+                              image={this.props.menuItems[item].image}
+                              key={item}
+                              onAddItem={() => this.props.onAddItem({name: item, qnt: 1, price: price, totalPrice: price})}
+                    />
+                )
+              })
+              :
+              <Spinner/>
+          }
         </div>
     );
   }
 }
 const mapStateToProps = state => ({
-  menuItems: state.menu.menuItems
+  menuItems: state.menu.menuItems,
+  loading: state.menu.loading,
 });
 const mapDispatchToProps = dispatch => ({
   onMenuLoad : () => dispatch(loadMenu()),
