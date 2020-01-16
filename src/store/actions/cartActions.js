@@ -1,5 +1,5 @@
 import {
-  ADD_ITEM,
+  ADD_ITEM, DECREASE_ITEM_QNT, INCREASE_ITEM_QNT,
   INIT_CART,
   ORDER_FAILURE,
   ORDER_REQUEST,
@@ -15,6 +15,8 @@ export const orderRequest = () => ({type: ORDER_REQUEST});
 export const orderSuccess = () => ({type: ORDER_SUCCESS});
 export const orderFailure = (error) => ({type: ORDER_FAILURE, error});
 
+export const increaseQnt = (name, price)=> ({type: INCREASE_ITEM_QNT, name, price});
+export const decreaseQnt = (name, price)=> ({type: DECREASE_ITEM_QNT, name, price});
 
 export const initCart = ()=> ({type: INIT_CART});
 

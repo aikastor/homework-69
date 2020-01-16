@@ -3,7 +3,7 @@ import {connect} from "react-redux";
 import {Card, Table} from "reactstrap";
 
 import './Cart.css';
-import {removeItem} from "../../store/actions/cartActions";
+import {decreaseQnt, increaseQnt, removeItem} from "../../store/actions/cartActions";
 import PlaceOrderModal from "../../components/PlaceOrderModal/PlaceOrderModal";
 
 class Cart extends Component {
@@ -27,8 +27,18 @@ class Cart extends Component {
                 {table && this.props.orderItems.map((item, i) =>
                     <tr key={i}>
                       <th scope="row">{i+1}</th>
-                      <td>{item.name}</td>
-                      <td>{item.qnt}</td>
+                      <td>
+                        {item.name}
+                      </td>
+                      <td>
+                        <button className='button delete-button'
+                                onClick={()=>this.props.increase(item.name, item.price)}
+                        >▴</button>
+                        {item.qnt}
+                        <button className='button delete-button'
+                                onClick={()=>this.props.decrease(item.name, item.price)}
+                        >▾</button>
+                      </td>
                       <td>
                         <b>{item.totalPrice} </b>
                         <button className='button delete-button'
@@ -68,6 +78,8 @@ const mapStateToProps = state => ({
 });
 const mapDispatchToProps = dispatch => ({
   deleteOrderItem: (item,price) => dispatch(removeItem(item,price)),
+  increase: (name, price)=> dispatch(increaseQnt(name, price)),
+  decrease: (name, price)=> dispatch(decreaseQnt(name, price)),
 });
 
 export default connect(mapStateToProps,mapDispatchToProps)(Cart);

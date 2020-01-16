@@ -1,5 +1,5 @@
 import {
-  ADD_ITEM, INIT_CART,
+  ADD_ITEM, DECREASE_ITEM_QNT, INCREASE_ITEM_QNT, INIT_CART,
   ORDER_FAILURE,
   ORDER_REQUEST,
   ORDER_SUCCESS,
@@ -14,10 +14,10 @@ const initialState = {
 };
 
 const cartReducer = (state = initialState, action)=> {
+  const curState = [...state.orders];
 
   const addItem = (item)=> {
 
-    const curState = [...state.orders];
     let index = curState.findIndex(i => i.name === item.name);
 
     if (index === -1) {
@@ -34,7 +34,38 @@ const cartReducer = (state = initialState, action)=> {
       totalPrice: state.totalPrice + item.price,
     }
   };
+  const increaseQnt = (name, price)=> {
+    let orderItem = curState.find(i=> i.name === name);
+    orderItem.qnt ++;
+    orderItem.totalPrice += price;
 
+    return{
+      ...state,
+      orders: curState,
+      totalPrice: state.totalPrice + price,
+    }
+  };
+  const decreaseQnt =(name, price)=>{
+    let orderItem = curState.find(i=> i.name === name);
+
+    if (orderItem.qnt > 1) {
+      orderItem.qnt --;
+      orderItem.totalPrice -= price;
+
+      return{
+        ...state,
+        orders: curState,
+        totalPrice: state.totalPrice - price,
+      }
+
+    } else {
+      return{
+        ...state,
+        orders: [...state.orders].filter(i=> i.name !== name),
+        totalPrice: state.totalPrice - price,
+      }
+    }
+  };
   switch (action.type) {
     case ADD_ITEM:
       return addItem(action.item);
@@ -44,6 +75,10 @@ const cartReducer = (state = initialState, action)=> {
         orders: [...state.orders].filter(i=> i.name !== action.item),
         totalPrice: state.totalPrice - action.price
       };
+    case INCREASE_ITEM_QNT:
+      return  increaseQnt(action.name, action.price);
+    case DECREASE_ITEM_QNT:
+      return  decreaseQnt(action.name, action.price);
     case ORDER_REQUEST:
       return {...state, ordering: true};
     case ORDER_SUCCESS:
