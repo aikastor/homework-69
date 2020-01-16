@@ -6,7 +6,6 @@ import thunkMiddleware from 'redux-thunk';
 
 import menuReducer from "./store/reducers/menuReducer";
 import cartReducer from "./store/reducers/cartReducer";
-import './index.css';
 import App from './App';
 import {Provider} from "react-redux";
 
